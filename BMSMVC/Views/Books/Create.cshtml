@@ -1,0 +1,67 @@
+﻿@model BookDto
+
+@{
+	ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Book</h4>
+<hr />
+<div class="row">
+	<div class="col-md-4">
+		<form asp-action="Create">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="form-group">
+				
+				<label asp-for="Name" class="control-label"></label>
+				<input asp-for="Name" class="form-control" />
+				<span asp-validation-for="Name" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="AuthorId" class="control-label"></label>
+				<select multiple asp-for="AuthorId" class="form-select" aria-label="Default select example">
+					@foreach (var item in ViewBag.Authors)
+					{
+						<option value="@item.Id">@item.Name @item.Surname</option>
+					}
+				</select>
+				<span asp-validation-for="AuthorId" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="PublisherId" class="control-label"></label>
+				<select asp-for="PublisherId">
+					@foreach (var item in ViewBag.Publishers)
+					{
+						<option value="@item.Id">@item.Name</option>
+					}
+
+				</select>
+				<span asp-validation-for="PublisherId" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="CategoryIds">Categories</label>
+				<select multiple asp-for="CategoryIds" class="form-select" aria-label="Default select example">
+					@foreach (var item in ViewBag.Categories)
+					{
+						<option value="@item.Id">@item.Name</option>
+					}
+				</select>
+				<span asp-validation-for="CategoryIds" class="text text-danger"></span>
+			</div>
+			<div class="form-group">
+				<input type="submit" value="Create" class="btn btn-primary" />
+			</div>
+		</form>
+	</div>
+</div>
+
+<div>
+	<a class="btn btn-primary" asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}
